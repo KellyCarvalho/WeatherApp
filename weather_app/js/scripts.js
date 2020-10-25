@@ -47,6 +47,7 @@ function pegarLocalUsuario(lat,long){
     
     },error: function(){
 
+
     }
 
           });
@@ -74,6 +75,8 @@ preencherCampos();
 
 
 
+    }else{
+      document.getElementById("page-loader").fadeOut();
     }
   };
  
@@ -286,6 +289,7 @@ temperaturas.push(d[a].Temperature.Value);
 gerargrafico(horarios,temperaturas);
 
 
+
 }
 
 
@@ -351,10 +355,11 @@ parametros.pais=cidade[2];
 
 
 
-//pegarCoordenadasDoIP();
+pegarCoordenadasDoIP();
 
 
 document.getElementById("search-button").onclick= function(){
+
   var local=  document.getElementById("local").value;
 
 
@@ -375,6 +380,7 @@ document.getElementById("search-button").onclick= function(){
 document.getElementById("local").onkeypress= function(e){
 
   if(e.which==13){
+
 
    
   var local=  document.getElementById("local").value;
