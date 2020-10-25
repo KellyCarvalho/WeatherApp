@@ -47,6 +47,21 @@ body.loading {
     background-color: rgba(0,0,0,0.7);
 }
 
+#aviso-erro{
+    display: none;
+    text-align: center;
+    background-color: #f13535;
+    color: white;
+    padding: 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    font: normal;
+
+}
+
 .refresh-loader svg {
     opacity: 1;
     margin-left: auto;

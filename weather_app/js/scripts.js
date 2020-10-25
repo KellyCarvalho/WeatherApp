@@ -46,7 +46,7 @@ function pegarLocalUsuario(lat,long){
 
     
     },error: function(){
-
+      gerarErro('Não foi possível identificar o local');
 
     }
 
@@ -60,7 +60,9 @@ function pegarLocalUsuario(lat,long){
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange=function(){
     if(this.readyState == 4 && this.status == 200){
-var d = JSON.parse(this.responseText);
+
+      try{
+        var d = JSON.parse(this.responseText);
 
 
 parametros.temperatura=d[0].Temperature.Metric.Value;
@@ -72,11 +74,17 @@ enviarClima(d[0].Temperature.Metric.Value,clima=d[0].WeatherText,"https://develo
 preencherCampos();
 
 
+      }catch{
+
+
+          gerarErro('Não foi possível Identificar o local');
+        
+      }
 
 
 
-    }else{
-      document.getElementById("page-loader").fadeOut();
+
+
     }
   };
  
@@ -160,6 +168,9 @@ var xhttp = new XMLHttpRequest();
 
 xhttp.onreadystatechange= function(){
   if(this.readyState==4&& this.status==200){
+
+
+
     var d =JSON.parse(this.responseText);
     var nome;
     var iconeClima;
@@ -251,7 +262,7 @@ function gerargrafico(horas, temperaturas){
     plotOptions: {
         line: {
             dataLabels: {
-                enabled: false
+                enabled: true
             },
             enableMouseTracking: false
         }
@@ -276,7 +287,11 @@ function pegarPrevisaoHora(localCode){
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange=function(){
     if(this.readyState == 4 && this.status == 200){
-var d = JSON.parse(this.responseText);
+
+
+      try{
+
+        var d = JSON.parse(this.responseText);
 
 for(var a=0;a<12;a++){
 
@@ -293,10 +308,18 @@ gerargrafico(horarios,temperaturas);
 }
 
 
+      }catch{
+        gerarErro("Não foi Possível Realizar Previsão");
+
+      }
 
 
 
 
+
+
+    }else{
+      
     }
 
   
@@ -321,7 +344,9 @@ function pegarCoodenadasPesquisa(input){
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange=function(){
     if(this.readyState == 4 && this.status == 200){
-var d = JSON.parse(this.responseText);
+
+      try{
+        var d = JSON.parse(this.responseText);
 var long = d.features[0].geometry.coordinates[0];
 var lat = d.features[0].geometry.coordinates[1];
 pegarLocalUsuario(lat,long);
@@ -332,6 +357,11 @@ parametros.cidade=cidade[0];
 parametros.estado=cidade[1];
 parametros.pais=cidade[2];
 
+
+
+      }catch{
+        gerarErro("Não foi Possível Encontrar o Local Pesquisado");
+      }
 
 
 
@@ -369,7 +399,8 @@ document.getElementById("search-button").onclick= function(){
 
 
   }else{
-    alert('local Inválido');
+  
+    gerarErro('local Inválido');
 
   
   }
@@ -392,7 +423,7 @@ document.getElementById("local").onkeypress= function(e){
   
   
     }else{
-      alert('local Inválido');
+      gerarErro("Local Inválido")
   
     
     } 
@@ -400,6 +431,21 @@ document.getElementById("local").onkeypress= function(e){
   }
 
 
+
+}
+
+function gerarErro(mensagem){
+
+  if(!mensagem){
+    mensagem="Erro Na Solicitação";
+  }
+
+  $("#aviso-erro").text(mensagem);
+  $("#aviso-erro").slideDown();
+  window.setTimeout(function(){
+    $("#aviso-erro").slideUp();
+
+  },1000);
 
 }
 
