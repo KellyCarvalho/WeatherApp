@@ -351,7 +351,7 @@ parametros.pais=cidade[2];
 
 
 
-pegarCoordenadasDoIP();
+//pegarCoordenadasDoIP();
 
 
 document.getElementById("search-button").onclick= function(){
@@ -368,6 +368,31 @@ document.getElementById("search-button").onclick= function(){
 
   
   }
+
+
+}
+
+document.getElementById("local").onkeypress= function(e){
+
+  if(e.which==13){
+
+   
+  var local=  document.getElementById("local").value;
+
+
+    if(local){
+      pegarCoodenadasPesquisa(local);
+  
+  
+  
+    }else{
+      alert('local Inválido');
+  
+    
+    } 
+
+  }
+
 
 
 }
